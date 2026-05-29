@@ -1,13 +1,35 @@
-import cv2
+import pyrealsense2 as rs
+import numpy as np
 
-def start_camera():
+pipeline = rs.pipeline()
 
-    cap = cv2.VideoCapture(4)
+config = rs.config()
 
-    if not cap.isOpened():
-        print("ERROR: Cannot access camera")
+config.enable_stream(
+    rs.stream.color,
+    640,
+    480,
+    rs.format.bgr8,
+    30
+)
+
+pipeline.start(config)
+
+
+def get_frame():
+
+    frames = pipeline.wait_for_frames()
+
+    color_frame = frames.get_color_frame()
+
+    if not color_frame:
         return None
 
-    print("Camera started successfully")
+    return np.asanyarray(
+        color_frame.get_data()
+    )
 
-    return cap
+
+def stop_camera():
+
+    pipeline.stop()
