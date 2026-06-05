@@ -1,50 +1,52 @@
-import cv2
-
-from app.camera.camera_stream import (
-    get_frame,
-    stop_camera
+from app.device.device_identity import (
+    load_device_config
 )
 
-from app.detection.person_detector import (
-    detect_people
-)
-
-from app.processing.json_generator import (
-    create_event_json
+from app.communication.device_registration import (
+    register_device
 )
 
 
 def main():
 
-    while True:
+    print("\n========== XARA BOOT ==========\n")
 
-        frame = get_frame()
+    try:
 
-        if frame is None:
-            continue
+        config = load_device_config()
 
-        output_frame, detections = detect_people(frame)
+        if not config.get("registered", False):
 
-        event_json = create_event_json(
-            detections
+            print(
+                "[INFO] First Boot Detected"
+            )
+
+            config = register_device()
+
+        else:
+
+            print(
+                "[INFO] Device Already Registered"
+            )
+
+        print(
+            f"\n[DEVICE ID] "
+            f"{config['device_id']}"
         )
 
-        print(event_json)
-
-        cv2.imshow(
-            "XARA AI Detection",
-            output_frame
+        print(
+            "\n========== BOOT COMPLETE ==========\n"
         )
 
-        key = cv2.waitKey(1)
+    except Exception as e:
 
-        if key == 27 or key == ord("q"):
-            print("Exiting XARA AI...")
-            break
+        print(
+            f"\n[ERROR] {e}"
+        )
 
-    stop_camera()
-
-    cv2.destroyAllWindows()
+        print(
+            "\nXARA Startup Failed\n"
+        )
 
 
 if __name__ == "__main__":
