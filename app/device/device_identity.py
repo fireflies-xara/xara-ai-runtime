@@ -69,12 +69,30 @@ def load_device_config():
     if not config_path.exists():
 
         default_config = {
-            "registered": False,
-            "device_id": "",
-            "machine_uuid": "",
-            "screen_id": "",
-            "location_id": ""
-        }
+
+    "registered": False,
+
+    "device_id": "",
+
+    "machine_uuid": "",
+
+    "hostname": "",
+
+    "mac_address": "",
+
+    "camera_serial": "",
+
+    "screen_id": "",
+
+    "location_id": "",
+
+    "branch_id": "",
+
+    "company_id": "",
+
+    "last_sync": ""
+
+}
 
         save_device_config(
             default_config

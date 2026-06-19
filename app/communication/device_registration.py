@@ -5,9 +5,7 @@ from app.device.device_identity import (
     save_device_config
 )
 
-BACKEND_URL = (
-    "http://127.0.0.1:8000/api/devices/register"
-)
+BACKEND_URL = "http://127.0.0.1:8000/devices/register"
 
 
 def register_device():
@@ -34,19 +32,29 @@ def register_device():
 
     config = {
 
-        "registered": True,
+    "registered": True,
 
-        "device_id": data["device_id"],
+    "device_id": data["device_id"],
 
-        "screen_id": "",
+    "machine_uuid": fingerprint["machine_uuid"],
 
-        "location_id": "",
+    "hostname": fingerprint["hostname"],
 
-        "company_id": "",
+    "mac_address": fingerprint["mac_address"],
 
-        "branch_id": ""
+    "camera_serial": fingerprint["camera_serial"],
 
-    }
+    "screen_id": "",
+
+    "location_id": "",
+
+    "branch_id": "",
+
+    "company_id": "",
+
+    "last_sync": ""
+
+}
 
     save_device_config(config)
 

@@ -1,8 +1,13 @@
 {
-    "registered": "true",
+    "registered": true,
     "device_id": "DEV-0001",
+    "machine_uuid": "706C1CF5-275A-0440-BBEC-57C0BB5B9AA8",
+    "hostname": "DESKTOP-IS44KP0",
+    "mac_address": "f4:c8:8a:6d:24:3b",
+    "camera_serial": "NOT_CONNECTED",
     "screen_id": "",
     "location_id": "",
+    "branch_id": "",
     "company_id": "",
-    "branch_id": ""
+    "last_sync": ""
 }
